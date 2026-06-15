@@ -1,0 +1,193 @@
+{
+  "version": "1.0",
+  "description": "第9阶段确定性检索评测集（retrieval_accuracy）。题目仅取自稳定知识结构（政策主题/报告模板章节/字段口径/案例报告主题/数据集说明），不含原文长段、不含训练语料正文、不来自 test split；不由 LLM 生成。仅含 query 与 expected 标签。",
+  "top_k": 5,
+  "keyword_hit_ratio": 0.5,
+  "match_rules": [
+    "每条 case 使用 top_k=5。",
+    "配置 expected_file 时：top_k 结果必须命中该 source_file。",
+    "配置 expected_source_type 时：top_k 结果必须命中该 source_type。",
+    "配置 expected_keywords 时：top_k 结果 summary/keywords 至少命中 50% 关键词。",
+    "同时配置文件/类型与关键词时：两类条件都要满足。",
+    "expected_section 仅作标注，不作为命中判定硬条件。"
+  ],
+  "cases": [
+    {
+      "case_id": "policy-01",
+      "query": "城市更新活动应当遵循的原则",
+      "expected_source_type": "policy",
+      "expected_file": "上海市城市更新条例.pdf",
+      "expected_keywords": ["城市更新", "应当"]
+    },
+    {
+      "case_id": "policy-02",
+      "query": "城市更新区域的划定与统筹管理职责",
+      "expected_source_type": "policy",
+      "expected_file": "上海市城市更新条例.pdf",
+      "expected_keywords": ["区域", "管理"]
+    },
+    {
+      "case_id": "policy-03",
+      "query": "区人民政府在城市更新工作中的职责",
+      "expected_source_type": "policy",
+      "expected_keywords": ["人民政府", "城市更新"]
+    },
+    {
+      "case_id": "policy-04",
+      "query": "城市更新实施方案的编制与要求",
+      "expected_source_type": "policy",
+      "expected_file": "上海市城市更新条例.pdf",
+      "expected_keywords": ["实施", "方案"]
+    },
+    {
+      "case_id": "policy-05",
+      "query": "城市更新规划与建设管理的规定",
+      "expected_source_type": "policy",
+      "expected_keywords": ["规划", "建设"]
+    },
+    {
+      "case_id": "policy-06",
+      "query": "既有建筑更新改造的相关规定",
+      "expected_source_type": "policy",
+      "expected_file": "上海市城市更新条例.pdf",
+      "expected_keywords": ["建筑", "规定"]
+    },
+    {
+      "case_id": "policy-07",
+      "query": "城市更新协议签订与项目推进",
+      "expected_source_type": "policy",
+      "expected_keywords": ["协议", "更新"]
+    },
+    {
+      "case_id": "template-01",
+      "query": "城市更新前期策划报告的章节结构",
+      "expected_source_type": "template",
+      "expected_file": "报告模板.docx",
+      "expected_keywords": ["城市更新", "项目"]
+    },
+    {
+      "case_id": "template-02",
+      "query": "核心、近邻与辐射圈层范围划分",
+      "expected_source_type": "template",
+      "expected_file": "报告模板.docx",
+      "expected_keywords": ["核心", "近邻", "范围"],
+      "expected_section": "表格1"
+    },
+    {
+      "case_id": "template-03",
+      "query": "POI配套设施分析指标",
+      "expected_source_type": "template",
+      "expected_keywords": ["POI", "配套"]
+    },
+    {
+      "case_id": "template-04",
+      "query": "人口客群与需求研判内容",
+      "expected_source_type": "template",
+      "expected_keywords": ["需求", "项目"]
+    },
+    {
+      "case_id": "template-05",
+      "query": "房价空间分布与改造潜力分析",
+      "expected_source_type": "template",
+      "expected_file": "报告模板.docx",
+      "expected_keywords": ["空间", "潜力"]
+    },
+    {
+      "case_id": "template-06",
+      "query": "产业经济与功能定位指标",
+      "expected_source_type": "template",
+      "expected_keywords": ["产业", "功能"]
+    },
+    {
+      "case_id": "template-07",
+      "query": "核心建议与综合分析结论",
+      "expected_source_type": "template",
+      "expected_keywords": ["建议", "分析"]
+    },
+    {
+      "case_id": "field_spec-01",
+      "query": "二手房交易数据字段说明",
+      "expected_source_type": "field_spec",
+      "expected_file": "矢量数据样例及说明表.xlsx",
+      "expected_keywords": ["二手房", "说明"],
+      "expected_section": "数据类目表"
+    },
+    {
+      "case_id": "field_spec-02",
+      "query": "POI兴趣点数据类目与名称字段",
+      "expected_source_type": "field_spec",
+      "expected_keywords": ["POI", "名称"]
+    },
+    {
+      "case_id": "field_spec-03",
+      "query": "产业实体数据字段口径",
+      "expected_source_type": "field_spec",
+      "expected_file": "矢量数据样例及说明表.xlsx",
+      "expected_keywords": ["产业", "实体"]
+    },
+    {
+      "case_id": "field_spec-04",
+      "query": "人口数据字段含义说明",
+      "expected_source_type": "field_spec",
+      "expected_keywords": ["人口", "说明"]
+    },
+    {
+      "case_id": "field_spec-05",
+      "query": "汽车相关POI门店类目",
+      "expected_source_type": "field_spec",
+      "expected_keywords": ["汽车", "门店"]
+    },
+    {
+      "case_id": "field_spec-06",
+      "query": "居住人口与工作人口字段定义",
+      "expected_source_type": "field_spec",
+      "expected_file": "矢量数据样例及说明表.xlsx",
+      "expected_keywords": ["居住", "工作"]
+    },
+    {
+      "case_id": "case_report-01",
+      "query": "项目周边人口与居住情况分析",
+      "expected_source_type": "case_report",
+      "expected_file": "XX项目大数据分析报告（脱敏版）.docx",
+      "expected_keywords": ["周边", "人口"]
+    },
+    {
+      "case_id": "case_report-02",
+      "query": "项目周边出租公寓与酒店分布",
+      "expected_source_type": "case_report",
+      "expected_keywords": ["出租", "公寓"]
+    },
+    {
+      "case_id": "case_report-03",
+      "query": "项目周边小区与广场分析",
+      "expected_source_type": "case_report",
+      "expected_keywords": ["小区", "广场"]
+    },
+    {
+      "case_id": "case_report-04",
+      "query": "项目周边范围与距离来看的分析",
+      "expected_source_type": "case_report",
+      "expected_file": "XX项目大数据分析报告（脱敏版）.docx",
+      "expected_keywords": ["范围", "距离"]
+    },
+    {
+      "case_id": "dataset_spec-01",
+      "query": "训练及测试数据集说明文档",
+      "expected_source_type": "dataset_spec",
+      "expected_file": "城市更新前期策划智能体训练及测试数据集说明.docx",
+      "expected_keywords": ["数据", "说明"]
+    },
+    {
+      "case_id": "dataset_spec-02",
+      "query": "城市更新前期策划智能体数据集说明",
+      "expected_source_type": "dataset_spec",
+      "expected_keywords": ["城市更新", "策划"]
+    },
+    {
+      "case_id": "dataset_spec-03",
+      "query": "矢量样例数据参见说明",
+      "expected_source_type": "dataset_spec",
+      "expected_keywords": ["矢量", "样例"]
+    }
+  ]
+}

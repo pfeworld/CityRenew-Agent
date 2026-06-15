@@ -1,0 +1,111 @@
+# =============================================================
+# CityRenew Agent .gitignore
+# 涉密原则：参考资料 / 训练语料 与任何派生的原始/中间/索引/产物数据
+# 绝不进入版本库。提交前请再次确认本文件生效。
+# =============================================================
+
+# ---------- 涉密资料目录（严禁提交） ----------
+参考资料/
+训练语料/
+# 第10C：科研人员提供的科研语料原始文件（严禁提交，仅本地解析/脱敏摘要入 external）
+科研语料/
+科研资料/
+# 第12G：SC 正式案例与报告模板材料（报告模版.docx / 华建案例 / 鲁商1992 图片版 / pptx）
+# 仅供智能体内部学习、检索、样例与回归测试，严禁提交（含大体积涉密案例文件）。
+SC/
+# 兼容可能的英文别名 / 软链接命名
+reference_materials/
+training_corpus/
+research_corpus/
+research_materials/
+
+# ---------- 数据派生目录（本地处理产物，严禁提交） ----------
+# 整个 data 目录一律不入库（含任何派生/缓存/数据库/模型/上传/会话/自评产物）
+backend/data/
+backend/data/raw/
+backend/data/processed/
+backend/data/index/
+backend/data/outputs/
+backend/data/splits/
+# 自评导出物，可能含涉密派生内容（第1阶段安全补充）
+backend/data/eval/
+# 外部真实数据增强目录（第10B 预留：地图/政府/授权/采集数据，严禁提交）
+backend/data/external/
+# 数据资产审计/血缘导出（第10A 起，含派生统计，已位于 outputs 下，显式再覆盖一次）
+backend/data/outputs/data_catalog/
+# 第11 T3：训练模型与产物（model.pkl / model_card 等，严禁提交大模型文件）
+backend/data/models/
+# 第一阶段（真链路）：用户在对话中上传的项目资料附件（涉私，严禁提交）
+backend/data/uploads/
+# 会话元数据（本地运行态，含用户输入摘要，避免误提交）
+backend/data/agent/
+backend/data/agent/conversations.json
+
+# ---------- 模型权重文件（任何位置，严禁提交） ----------
+*.pkl
+*.joblib
+*.pt
+*.pth
+*.onnx
+*.h5
+
+# ---------- 数据库与本地存储 ----------
+*.db
+*.sqlite
+*.sqlite3
+*.duckdb
+
+# ---------- 密钥与环境变量 ----------
+.env
+.env.*
+backend/.env
+backend/.env.*
+!.env.example
+!backend/.env.example
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ---------- 前端 / Node ----------
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+build/
+.next/
+out/
+*.log
+
+# ---------- 系统与编辑器 ----------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.bak
+*.tmp
+# Office 临时锁文件
+~$*.docx
+~$*.xlsx
+~$*.pptx
+.~*
+
+# ---------- Cursor（内部规则/计划，不入正式仓库） ----------
+.cursor/
+
+# ---------- 临时与导出（可能含涉密派生内容） ----------
+tmp/
+exports/
+
+# ---------- docs：仅保留正式提交文档（docx），排除开发过程材料 ----------
+docs/*.md
+docs/build_user_manual.py
+docs/使用说明书截图/
+backend/README.md

@@ -1,0 +1,40 @@
+# CityRenew Agent 后端依赖
+# 第1阶段：骨架所需。第2阶段：新增结构化资料解析（openpyxl 读 xlsx 口径表、
+# PyYAML 维护字段映射配置）。不含 RAG / 外部大模型相关依赖，后续阶段按需新增。
+
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+sqlalchemy==2.0.36
+pydantic==2.10.4
+pydantic-settings==2.7.1
+python-dotenv==1.0.1
+
+# ---- 第2阶段：结构化资料导入 ----
+openpyxl==3.1.5
+PyYAML==6.0.3
+
+# ---- 第3阶段：RAG 知识库与证据链（均纯本地，无外部 API/embedding）----
+pypdf==5.1.0
+python-docx==1.1.2
+jieba==0.42.1
+rank-bm25==0.2.2
+
+# ---- 第5阶段：四维分析与房价基线模型（纯本地训练，仅 train/val；无外部 API）----
+# 依赖异常/缺失时，housing_price_model 自动降级为中位数/分位数统计基线。
+scikit-learn==1.6.1
+numpy==2.2.1
+joblib==1.4.2
+
+# ---- 第10B：合规外部数据采集（仅在配置 Key/授权时调用官方 API）----
+# 缺失时 amap_service 自动降级为 degraded 并记 failed_reason，不伪造数据。
+requests==2.32.3
+
+# ---- 第二阶段：正式报告基于 SC/报告模板.docx 复制填充生成 Word，再由 LibreOffice
+# (soffice --headless) 把生成后的 Word 转 PDF，保证 Word/PDF 同源一致。
+# 不再使用 ReportLab 单独生成 PDF（已移除）；LibreOffice 为系统级依赖，经 Homebrew 安装。
+
+# ---- 第一阶段（真链路）：会话附件解析 + 文件上传 ----
+# 用户上传的项目资料解析：pptx 文本、文件上传表单、编码探测。
+python-pptx==1.0.2
+python-multipart==0.0.20
+chardet>=5.2.0

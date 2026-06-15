@@ -1,0 +1,59 @@
+# 字段自适应映射配置（第2阶段）
+#
+# 结构：每个 data_type 下：
+#   aliases:        标准字段 -> 候选别名列表（命中第一个非空即采用）
+#   spec_optional:  说明表声明、但样本 JSON 中可能缺失的字段（缺失记 warning，不算错误）
+#
+# 原则（对齐 .cursor/rules 第9条）：缺失字段一律标 null 并记入质量报告，绝不编造。
+# 字段口径以 矢量数据样例及说明表.xlsx 为准；本表仅做"别名 -> 标准列"的归一化。
+
+poi:
+  aliases:
+    source_id: [id, poi_id, source_id]
+    name: [name, name_cn, 名称]
+    category_name: [category_name, category, 类别, type]
+    district_name: [district_name, district, 区, 区县, 行政区]
+    address: [address, addr, 地址]
+    coordinates: [coordinates, geometry, lnglat, location, 坐标]
+  spec_optional: []
+
+industry:
+  aliases:
+    source_id: [id, industry_id, source_id]
+    name: [name, name_cn, 名称, 企业名称]
+    category_name: [category_name, category, 类别, 产业类别, type]
+    district_name: [district_name, district, 区, 区县, 行政区]
+    address: [address, addr, 地址]
+    coordinates: [coordinates, geometry, lnglat, location, 坐标]
+  spec_optional: []
+
+house_price:
+  aliases:
+    source_id: [id, house_id, source_id]
+    name: [name, name_cn, 名称]
+    price: [price, total_price, 总价]
+    unit_price: [unit_price, price_unit, 单价]
+    area: [area, 面积, 建筑面积]
+    direction: [direction, 朝向]
+    room_type: [room_type, huxing, 户型]
+    residence: [residence, community, 小区]
+    building_type: [building_type, 建筑类型, 楼型]
+    year: [year, build_year, 建成年代, 建成年份]
+    coordinates: [coordinates, geometry, lnglat, location, 坐标]
+  # 说明表声明、当前样本 JSON 未提供的口径字段：缺失记 warning，不编造
+  spec_optional: [decoration, listing_time]
+
+# 人口为网格数据：总量与画像两文件按 grid_key 合并为一条记录
+population_total:
+  aliases:
+    residential: [residential, 居住人口, 常住人口]
+    worker: [worker, 工作人口, 就业人口]
+    coordinates: [coordinates, geometry, 坐标]
+  spec_optional: []
+
+population_profile:
+  aliases:
+    coordinates: [coordinates, geometry, 坐标]
+  # 画像字段动态保留全部 residential_* / worker_* 列至 profile_json，
+  # 不在此逐一枚举，避免与口径表漂移；收入档若数据未提供则不编造。
+  spec_optional: []
